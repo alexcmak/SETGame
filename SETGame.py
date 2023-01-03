@@ -239,7 +239,7 @@ def main():
 
 	images = []
 
-	run = initialize_board()	
+	run = initialize_board()
 	render()
 
 	while run:

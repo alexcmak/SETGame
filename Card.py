@@ -8,7 +8,7 @@ class Card:
 		self.color = color     # red, purple, green
 		self.number = number   # 1, 2, 3
 		self.shading = shading # solid, striped, outlined
-		self.nth = nth  		# nth card in an unsorted deck
+		self.nth = nth         # nth card on the table
 
 	def __str__(self):
 		# python has no switch case

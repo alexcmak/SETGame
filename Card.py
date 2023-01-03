@@ -45,6 +45,6 @@ class Card:
 
 	def isBlank(self):
 		if self.shape == 0 and self.color == 0 and self.number == 0 and self.shading == 0:
-			return True;
+			return True
 		return False
 

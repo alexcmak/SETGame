@@ -3,6 +3,8 @@
 # Alex Mak
 import Card
 import itertools
+import sys
+
 # one CardList represent a 2-D board
 class Board:
 
@@ -168,16 +170,16 @@ class Board:
 		diffcount = 0
 		if (bAllDiffShape):
 			#print("all diff shape")
-			diffcount = diffcount + 1
+			diffcount += 1
 		if (bAllDiffColor):
 			#print("all diff color")
-			diffcount = diffcount + 1
+			diffcount += 1
 		if (bAllDiffNumber):
 			#print("all diff numbers")
-			diffcount = diffcount + 1
+			diffcount += 1
 		if (bAllDiffShading):
 			#print("all diff shading")
-			diffcount = diffcount + 1
+			diffcount += 1
 
 		if ((bSameNumber == True or bAllDiffNumber == True) and
 			(bSameShape == True or bAllDiffShape == True) and 
@@ -229,6 +231,7 @@ class Board:
 		else:
 			print ("There are " + str(count) + " possible sets on the table.")
 
+		sys.stdout.flush()
 		self.KnownSets = count
 		return count
 

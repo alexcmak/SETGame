@@ -12,15 +12,14 @@ Please read more about [how to install](https://www.pygame.org/wiki/GettingStart
 
 `pip install pygame --pre`
 
-To run this game once you have python and pygame, run this in the command line:
+To run this game once you have python and pygame, run something like this in the command line:
 
 `python SETGame.py`
-
 
 ## Features
 
 This game displays up to 4 rows of cards. Pick any 3 cards and the program will tell you if the cards satisify the requirements to make a _set_.
-Please read more about the SET game [here]("https://en.wikipedia.org/wiki/Set_(card_game)").
+Please read more about the SET game [here](https://en.wikipedia.org/wiki/Set_(card_game)).
 
 ![screenshot](https://github.com/alexcmak/SETGame/blob/main/images/screen1.png)
 
@@ -34,4 +33,4 @@ It's a card game, don't over think it, what good is a _proof_ of how many rows y
 ## Future Versions
 
 - improved graphics
-- more GUI elements that can provide suggestions.
+- more GUI elements that can provide hints for possible sets.

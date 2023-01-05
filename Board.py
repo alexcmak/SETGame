@@ -109,6 +109,11 @@ class Board:
 	def IsSet(self, indexes):
 		# get from the Board
 		#print(f"IsSet() indexes: {indexes[0]} {indexes[1]} and {indexes[2]}")
+		list_size = len(self.CardList)
+
+		if (indexes[0] > list_size or indexes[1] > list_size or indexes[2] > list_size):
+			return False
+
 
 		Card1 = self.CardList[indexes[0]]
 		Card2 = self.CardList[indexes[1]]

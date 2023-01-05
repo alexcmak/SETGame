@@ -113,10 +113,9 @@ def initialize_board():
 	distribute_cards()
 	return True
 	
-	
 boxes_clicked = []
 
-def click():
+def OnClicked():
 	global images
 	global click_count
 	global b
@@ -125,7 +124,7 @@ def click():
 
 	# Mouse position
 	m_x, m_y = pygame.mouse.get_pos()
-	box_size = 186
+	box_size = WIDTH / 4
 	box_clicked = -1
 
 	if m_y < box_size:
@@ -164,8 +163,6 @@ def click():
 			box_clicked = 14
 		elif m_x > 3 * box_size and m_x < 4 * box_size:
 			box_clicked = 15
-
-	#print(f"box clicked {box_clicked}")
 
 	if box_clicked not in boxes_clicked:
 		boxes_clicked.append(box_clicked)
@@ -206,7 +203,7 @@ def display_score():
 	if (SetCount == 1):
 		message = "Score: " + str(SetCount) + " set"
 	elif (SetCount > 1):
-		message = "Score " + str(SetCount) + " sets"
+		message = "Score: " + str(SetCount) + " sets"
 	
 	text_surface = SCORE_FONT.render(message, False, BLACK)
 	win.blit(text_surface, (10,10))
@@ -220,6 +217,30 @@ def display_score():
 	possible_surface = SCORE_FONT.render(possible_text, False, BLACK)
 	win.blit(possible_surface ,(580, 10))
 
+def draw_black_box(box_clicked):
+	grid_width = WIDTH / 4
+	box_size = grid_width * 0.9
+	offset = 9
+
+	col_clicked = int(box_clicked % 4)
+	row_clicked = box_clicked // 4
+
+	x = col_clicked * (box_size + 2* offset) + offset
+	y = row_clicked * (box_size + 2* offset) + offset
+
+
+	pygame.draw.rect(win, BLACK, pygame.Rect(x, y, box_size, box_size), 2)
+	return
+
+def draw_boxes():
+
+	if (len(boxes_clicked) == 0):
+		return
+	
+	#print(boxes_clicked)
+	for box in boxes_clicked:
+		draw_black_box(box)
+	return
 
 def render():
 	win.fill(WHITE)
@@ -230,6 +251,8 @@ def render():
 	for image in images:
 		x, y, IMAGE = image
 		win.blit(IMAGE, (x - IMAGE.get_width() // 2, y - IMAGE.get_height() // 2))
+
+	draw_boxes()
 
 	pygame.display.update()
 	
@@ -248,7 +271,7 @@ def main():
 				run = False
 			
 			if event.type == pygame.MOUSEBUTTONDOWN:
-				run = click()
+				run = OnClicked()
 
 		render()
 	pygame.quit()

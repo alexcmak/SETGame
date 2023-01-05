@@ -127,6 +127,9 @@ def OnClicked():
 	box_size = WIDTH / 4
 	box_clicked = -1
 
+	if (len(boxes_clicked) == 3):
+		boxes_clicked.clear()
+
 	if m_y < box_size:
 		if m_x < box_size:
 			box_clicked = 0
@@ -167,23 +170,7 @@ def OnClicked():
 	if box_clicked not in boxes_clicked:
 		boxes_clicked.append(box_clicked)
 
-	if (len(boxes_clicked) == 3):
-		#print("got 3 boxes")
-		#print(boxes_clicked)
-		if b.IsSet(boxes_clicked) == True:
-			print("got a set!")
-			SetCount += 1
-			b.ReplaceCardsByIndex(boxes_clicked)
-			#b.PrintDeck()
 
-			PossibleMatches = b.CheckSetsIndex()
-
-			distribute_cards()
-			if b.DeckIndex >= 81:
-				game_over("Game Over")
-				return False
-
-		boxes_clicked.clear()
 	return True
 
 def game_over(content):
@@ -228,18 +215,19 @@ def draw_black_box(box_clicked):
 	x = col_clicked * (box_size + 2* offset) + offset
 	y = row_clicked * (box_size + 2* offset) + offset
 
-
 	pygame.draw.rect(win, BLACK, pygame.Rect(x, y, box_size, box_size), 2)
 	return
 
 def draw_boxes():
 
-	if (len(boxes_clicked) == 0):
+	num_of_boxes = len(boxes_clicked);
+
+	if (num_of_boxes == 0):
 		return
-	
-	#print(boxes_clicked)
+
 	for box in boxes_clicked:
 		draw_black_box(box)
+		
 	return
 
 def render():
@@ -255,7 +243,30 @@ def render():
 	draw_boxes()
 
 	pygame.display.update()
-	
+
+def check_match():
+
+	global SetCount
+	num_boxes_clicked = len(boxes_clicked)
+
+	if (num_boxes_clicked == 3):
+		
+		if b.IsSet(boxes_clicked) == True:
+			print("got a set!")
+			SetCount += 1
+			b.ReplaceCardsByIndex(boxes_clicked)
+			#b.PrintDeck()
+
+			PossibleMatches = b.CheckSetsIndex()
+
+			distribute_cards()
+			if b.DeckIndex >= 81:
+				game_over("Game Over")
+				return False
+		
+		
+		pygame.time.delay(500)
+		boxes_clicked.clear()	
 
 def main():
 	global images
@@ -273,7 +284,10 @@ def main():
 			if event.type == pygame.MOUSEBUTTONDOWN:
 				run = OnClicked()
 
+		
 		render()
+		check_match()
+
 	pygame.quit()
 	sys.exit()
 

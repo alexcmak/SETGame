@@ -14,6 +14,7 @@ Deck = []
 DeckIndex = 0
 SetCount = 0
 PossibleMatches = 0
+ShowHelpBox = False
 
 # Screen
 WIDTH = 750
@@ -25,6 +26,7 @@ pygame.display.set_caption("SET Game - Alex Mak")
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GRAY = (200, 200, 200)
+YELLOW = (255, 191, 0)
 
 SCORE_FONT = pygame.font.SysFont("Comic Sans MS", 20)
 END_FONT = pygame.font.SysFont('courier', 40)
@@ -103,6 +105,7 @@ def initialize_board():
 	#b.PrintDeck()
 
 	PossibleMatches = b.CheckSetsIndex()
+
 	if PossibleMatches == 0:
 		print("Whoa unusual, need 4th row")
 		b.AddRow()
@@ -206,7 +209,7 @@ def display_score():
 	possible_surface = SCORE_FONT.render(possible_text, False, BLACK)
 	win.blit(possible_surface ,(580, 10))
 
-def draw_black_box(box_clicked):
+def draw_box(box_clicked, color):
 	grid_width = WIDTH / 4
 	box_size = grid_width * 0.9
 	offset = 9
@@ -217,18 +220,18 @@ def draw_black_box(box_clicked):
 	x = col_clicked * (box_size + 2* offset) + offset
 	y = row_clicked * (box_size + 2* offset) + offset
 
-	pygame.draw.rect(win, BLACK, pygame.Rect(x, y, box_size, box_size), 2)
+	pygame.draw.rect(win, color, pygame.Rect(x, y, box_size, box_size), 2)
 	return
 
 def draw_boxes():
 
-	num_of_boxes = len(boxes_clicked);
-
-	if (num_of_boxes == 0):
-		return
-
 	for box in boxes_clicked:
-		draw_black_box(box)
+		draw_box(box, BLACK)
+
+	if ShowHelpBox == True:
+		for box in b.Match_indexes:
+			draw_box(box, YELLOW)
+	
 		
 	return
 
@@ -279,11 +282,12 @@ def check_match():
 
 def main():
 	global images
-
+	global ShowHelpBox
 	images = []
 
 	run = initialize_board()
 	render()
+	
 
 	while run:
 		for event in pygame.event.get():
@@ -291,11 +295,19 @@ def main():
 				run = False
 			
 			if event.type == pygame.MOUSEBUTTONDOWN:
-				run = OnClicked()
+				if event.button == pygame.BUTTON_LEFT:
+					run = OnClicked()
+				elif event.button == pygame.BUTTON_RIGHT:
+					ShowHelpBox = True
+
+			if event.type == pygame.MOUSEBUTTONUP:
+				if event.button == pygame.BUTTON_RIGHT:
+					ShowHelpBox = False
 
 		
 		render()
 		check_match()
+		
 
 	pygame.quit()
 	sys.exit()

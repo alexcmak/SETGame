@@ -13,6 +13,7 @@ class Board:
 	CardList = []
 	DeckIndex = 0
 	KnownSets = 0
+	Match_indexes = []
 	
 	def __init__(self, Deck):
 		self.Deck = Deck
@@ -231,6 +232,7 @@ class Board:
 	# Choose 3 cards, get the card's index
 	def CheckSetsIndex(self):
 		count = 0
+		global Match_indexes
 
 		for combo in itertools.combinations(enumerate(self.CardList), 3):
 			list = [*combo]
@@ -240,6 +242,7 @@ class Board:
 			indexes = [index1[0], index2[0], index3[0]]
 
 			if self.IsSet(indexes) == True:
+				self.Match_indexes = indexes
 				count += 1
 		if count == 1:
 			print("There is only 1 possible set on the table.")
@@ -248,6 +251,7 @@ class Board:
 
 		sys.stdout.flush()
 		self.KnownSets = count
+
 		return count
 
 	def PrintDeck(self):

@@ -23,6 +23,9 @@ Please read more about the SET game [here](https://en.wikipedia.org/wiki/Set_(ca
 
 ![screenshot](https://github.com/alexcmak/SETGame/blob/main/images/screen1.png)
 
+- Use left click to select a card
+- Hold right click to get a hint 
+
 ## Math
 There is quite a bit of [math](https://www.setgame.com/sites/default/files/teacherscorner/SETPROOF.pdf) involved in this deceptively simple game. I have not used any _discrete math_ since I studied that in college over 30 years ago. Python is a good choice to write a game like this because it already support "12 choose 3" kind of _combination_ math. 
 
@@ -33,4 +36,4 @@ It's a card game, don't over think it, what good is a _proof_ of how many rows y
 ## Future Versions
 
 - improved graphics
-- more GUI elements that can provide hints for possible sets.
+- help screen that spell out the rules

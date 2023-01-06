@@ -96,6 +96,15 @@ class Board:
 		blank_card = Card.Card(0,0,0,0, 0)
 		return blank_card
 
+	def PrintSet(self, Card1, Card2, Card3):
+
+		with open("SET_Found.txt", "w") as f:
+			print("A Set!!", file = f)
+			print(Card1, file = f)
+			print(Card2, file = f)
+			print(Card3, file = f)
+			print("-------", file = f)
+			
 	"""
 	A set consists of three cards satisfying all of these conditions:
 	They all have the same number or have three different numbers.
@@ -112,13 +121,18 @@ class Board:
 		list_size = len(self.CardList)
 
 		if (indexes[0] > list_size or indexes[1] > list_size or indexes[2] > list_size):
+			print("invalid indexes, so not a set")
 			return False
-
 
 		Card1 = self.CardList[indexes[0]]
 		Card2 = self.CardList[indexes[1]]
 		Card3 = self.CardList[indexes[2]]
 
+		#print("Check if set")
+		#print(Card1)
+		#print(Card2)
+		#print(Card3)
+		
 		if Card1.shape == 0 and Card1.color == 0 and Card1.number == 0 and Card1.shading == 0:
 			return False
 		if Card2.shape == 0 and Card2.color == 0 and Card2.number == 0 and Card2.shading == 0:
@@ -196,6 +210,8 @@ class Board:
 			print(Card2)
 			print(Card3)
 			print("-------")
+
+			#self.PrintSet(Card1, Card2, Card3)
 		
 			return True
 
@@ -208,12 +224,6 @@ class Board:
 			print(Card3)
 
 			return True
-
-		#print(diffcount)
-
-		#print(Card1)
-		#print(Card2)
-		#print(Card3)
 
 		#print("sorry, not a set")
 		return False

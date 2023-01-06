@@ -68,9 +68,11 @@ def distribute_cards():
 	box_size = WIDTH / 4
 	offset = 8
 	col = image_w // 2 + offset
-	
+		
+	images.clear()
+
 	i = 0
-	for r in range(0, b.Rows):		
+	for r in range(0, b.Rows):
 		row = r * box_size + image_h - offset
 		for c in range(0, 4):
 			if b.Rows == 4:
@@ -247,10 +249,14 @@ def render():
 def check_match():
 
 	global SetCount
+	global PossibleMatches 
+
 	num_boxes_clicked = len(boxes_clicked)
 
+	#b.PrintCardList()
+
 	if (num_boxes_clicked == 3):
-		
+		print(boxes_clicked)
 		if b.IsSet(boxes_clicked) == True:
 			print("got a set!")
 			SetCount += 1
@@ -263,10 +269,13 @@ def check_match():
 			if b.DeckIndex >= 81:
 				game_over("Game Over")
 				return False
-		
-		
+		else:
+			print("sorry that was not a set")
+
 		pygame.time.delay(500)
 		boxes_clicked.clear()	
+	#else:
+	#	print("sorry do not have 3 boxes")
 
 def main():
 	global images

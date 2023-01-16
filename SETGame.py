@@ -77,7 +77,7 @@ def distribute_cards():
 	for r in range(0, b.Rows):
 		row = r * box_size + image_h - offset
 		for c in range(0, 4):
-			if b.Rows == 4:
+			if row == 4:
 				images.append((c * box_size + col,row, PNGS[0]))
 			else:
 				images.append((c * box_size + col,row, card_image(i)))

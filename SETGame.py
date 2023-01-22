@@ -37,13 +37,14 @@ image_h = 100
 b = None
 PNGS = []
 
+Score_message = ""
+
 def load_images():
 
 	for i in range(0,82):
 		filename = "images/slide" + str(i) + ".png"
 		PNG = pygame.transform.scale(pygame.image.load(filename), (image_w, image_h))
 		PNGS.append(PNG)
-
 
 def draw_grid():
 	gap = WIDTH // ROWS
@@ -89,11 +90,13 @@ def initialize_board():
 	global b
 	global PossibleMatches
 	global SetCount
+	global Score_message
 
 	SetCount = 0
 	PossibleMatches = 0
-	
+	boxes_clicked.clear()
 	Deck.clear()
+	Score_message = ""
 	
 	i = 1 # start with 1, blank is not in the Deck
 	for s in range(1,4):
@@ -180,14 +183,21 @@ def OnClicked():
 	if box_clicked not in boxes_clicked:
 		boxes_clicked.append(box_clicked)
 
-
 	return True
 
-def game_over(content):
+def game_over():
 	pygame.time.delay(500)
 	win.fill(WHITE)
-	end_text = END_FONT.render(content, 1, BLACK)
-	win.blit(end_text, ((WIDTH - end_text.get_width()) // 2, (WIDTH - end_text.get_height()) // 2))
+	end_text = END_FONT.render("Game Over", 1, BLACK)
+
+	mid_width = (WIDTH - end_text.get_width()) // 2
+	mid_height = (WIDTH - end_text.get_height()) // 2
+
+	win.blit(end_text, (mid_width, mid_height))
+
+	score_text = SCORE_FONT.render(Score_message, False, BLACK)
+	win.blit(score_text, (mid_width,mid_height + 40))
+
 	pygame.display.update()
 	pygame.time.delay(5000)
 	initialize_board()
@@ -197,15 +207,15 @@ def display_score():
 
 	global SetCount
 	global PossibleMatches
+	global Score_message
 
-	message = ""
 	if (SetCount == 1):
-		message = "Score: " + str(SetCount) + " set"
+		Score_message = "Score: " + str(SetCount) + " set"
 	elif (SetCount > 1):
-		message = "Score: " + str(SetCount) + " sets"
+		Score_message = "Score: " + str(SetCount) + " sets"
 	
-	text_surface = SCORE_FONT.render(message, False, BLACK)
-	win.blit(text_surface, (10,10))
+	score_text = SCORE_FONT.render(Score_message, False, BLACK)
+	win.blit(score_text, (10,10))
 
 	possible_text = ""
 	if (PossibleMatches == 1):
@@ -277,7 +287,7 @@ def check_match():
 
 			distribute_cards()
 			if b.DeckIndex >= 81:
-				game_over("Game Over")
+				game_over()
 				return False
 		else:
 			print("sorry that was not a set")
@@ -295,7 +305,6 @@ def main():
 	load_images()
 	run = initialize_board()
 	render()
-	
 
 	while run:
 		for event in pygame.event.get():

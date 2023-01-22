@@ -83,7 +83,7 @@ def distribute_cards():
 				i+= 1
 
 	#print(f"there are {b.Rows} rows")
-	#b.PrintCardList()
+	#b.PrintTable()
 
 def initialize_board():
 	global b
@@ -107,7 +107,7 @@ def initialize_board():
 	random.shuffle(Deck)
 
 	b = Board.Board(Deck)
-	#b.PrintDeck()
+	# b.PrintDeck()
 
 	PossibleMatches = b.CheckSetsIndex()
 
@@ -263,7 +263,7 @@ def check_match():
 
 	num_boxes_clicked = len(boxes_clicked)
 
-	#b.PrintCardList()
+	#b.PrintTable()
 
 	if (num_boxes_clicked == 3):
 		print(boxes_clicked)

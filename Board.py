@@ -252,7 +252,7 @@ class Board:
 		if count == 1:
 			print("There is only 1 possible set on the table.")
 		else:
-			print ("There are " + str(count) + " possible sets on the table.")
+			print(f"There are {str(count)} possible sets on the table.")
 
 		sys.stdout.flush()
 		self.KnownSets = count
@@ -271,12 +271,13 @@ class Board:
 				print(file = f)
 				i = i + 1
 
-	def PrintCardList(self):
+	def PrintTable(self):
 		with open("table.txt", "w") as f:
 			for cc in self.CardList:
 				print(cc.nth, end="", file = f)
 				print(cc, end="", file = f)
 				print(file = f)
+			print(f"There are {self.Rows} rows.", file = f)
 				
 	def AddRow(self):
 		# if there are matches do not allow add
@@ -310,7 +311,11 @@ class Board:
 
 		if card12.isBlank() and card13.isBlank() and card14.isBlank() and card15.isBlank():
 			print("removed 4 cells")
-			self.CardList[-4] # remove 4 cells
+			# remove 4 cells
+			self.CardList.pop()
+			self.CardList.pop()
+			self.CardList.pop()
+			self.CardList.pop()
 		else:
 			print("row 4 still have cells, so not removed")
 

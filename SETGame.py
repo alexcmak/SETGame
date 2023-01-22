@@ -11,7 +11,6 @@ import Board
 pygame.init()
 
 Deck = []
-DeckIndex = 0
 SetCount = 0
 PossibleMatches = 0
 ShowHelpBox = False
@@ -89,6 +88,12 @@ def distribute_cards():
 def initialize_board():
 	global b
 	global PossibleMatches
+	global SetCount
+
+	SetCount = 0
+	PossibleMatches = 0
+	
+	Deck.clear()
 	
 	i = 1 # start with 1, blank is not in the Deck
 	for s in range(1,4):
@@ -114,7 +119,7 @@ def initialize_board():
 			game_over()
 			return False
 
-	load_images()
+
 	distribute_cards()
 	return True
 	
@@ -179,12 +184,14 @@ def OnClicked():
 	return True
 
 def game_over(content):
-    pygame.time.delay(500)
-    win.fill(WHITE)
-    end_text = END_FONT.render(content, 1, BLACK)
-    win.blit(end_text, ((WIDTH - end_text.get_width()) // 2, (WIDTH - end_text.get_height()) // 2))
-    pygame.display.update()
-    pygame.time.delay(5000)
+	pygame.time.delay(500)
+	win.fill(WHITE)
+	end_text = END_FONT.render(content, 1, BLACK)
+	win.blit(end_text, ((WIDTH - end_text.get_width()) // 2, (WIDTH - end_text.get_height()) // 2))
+	pygame.display.update()
+	pygame.time.delay(5000)
+	initialize_board()
+
 
 def display_score():
 
@@ -231,7 +238,7 @@ def draw_boxes():
 	if ShowHelpBox == True:
 		for box in b.Match_indexes:
 			draw_box(box, YELLOW)
-	
+			
 		
 	return
 
@@ -285,6 +292,7 @@ def main():
 	global ShowHelpBox
 	images = []
 
+	load_images()
 	run = initialize_board()
 	render()
 	

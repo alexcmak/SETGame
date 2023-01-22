@@ -17,6 +17,11 @@ class Board:
 	
 	def __init__(self, Deck):
 		self.Deck = Deck
+		self.KnownSets = 0
+		self.Rows = 3
+		self.Cols = 4
+		self.DeckIndex = 0
+		self.CardList.clear()
 		
 		# distribute already shuffled deck
 		for i in range(0,(self.Rows * self.Cols)):

@@ -14,6 +14,7 @@ Deck = []
 SetCount = 0
 PossibleMatches = 0
 ShowHelpBox = False
+HintCount = 0
 
 # Screen
 WIDTH = 750
@@ -91,12 +92,14 @@ def initialize_board():
 	global PossibleMatches
 	global SetCount
 	global Score_message
+	global HintCount
 
 	SetCount = 0
 	PossibleMatches = 0
 	boxes_clicked.clear()
 	Deck.clear()
 	Score_message = ""
+	HintCount = 0
 	
 	i = 1 # start with 1, blank is not in the Deck
 	for s in range(1,4):
@@ -193,13 +196,16 @@ def game_over():
 	mid_width = (WIDTH - end_text.get_width()) // 2
 	mid_height = (WIDTH - end_text.get_height()) // 2
 
-	win.blit(end_text, (mid_width, mid_height))
-
+	win.blit(end_text, (mid_width, mid_height - 50 ))
 	score_text = SCORE_FONT.render(Score_message, False, BLACK)
-	win.blit(score_text, (mid_width,mid_height + 40))
+	win.blit(score_text, (mid_width,mid_height + 35))
+
+	hint_message = "Hints needed: " + str(HintCount)
+	hint_text = SCORE_FONT.render(hint_message, False, BLACK)
+	win.blit(hint_text, (mid_width,mid_height + 80))
 
 	pygame.display.update()
-	pygame.time.delay(5000)
+	pygame.time.delay(7000)
 	initialize_board()
 
 
@@ -248,8 +254,7 @@ def draw_boxes():
 	if ShowHelpBox == True:
 		for box in b.Match_indexes:
 			draw_box(box, YELLOW)
-			
-		
+
 	return
 
 def render():
@@ -300,6 +305,7 @@ def check_match():
 def main():
 	global images
 	global ShowHelpBox
+	global HintCount
 	images = []
 
 	load_images()
@@ -319,6 +325,7 @@ def main():
 
 			if event.type == pygame.MOUSEBUTTONUP:
 				if event.button == pygame.BUTTON_RIGHT:
+					HintCount += 1
 					ShowHelpBox = False
 
 		

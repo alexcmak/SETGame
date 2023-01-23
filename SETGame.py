@@ -285,7 +285,11 @@ def check_match():
 		if b.IsSet(boxes_clicked) == True:
 			print("got a set!")
 			SetCount += 1
-			b.ReplaceCardsByIndex(boxes_clicked)
+			rc = b.ReplaceCardsByIndex(boxes_clicked)
+			if rc == False:
+				game_over()
+				return False
+
 			#b.PrintDeck()
 
 			PossibleMatches = b.CheckSetsIndex()

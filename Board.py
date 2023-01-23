@@ -76,9 +76,15 @@ class Board:
 					print("replace 15")	
 					self.CheckRemoveRow()
 					return
-
 			else:
-				self.CardList[index] = self.GetCardFromDeck()
+				
+				#print(f"trying to replace {index}")
+				nCards = len(self.CardList)
+				if index > nCards:
+					print(f"uh oh try to reach {index}, I only have {nCards} cards");
+					print(f"rows is {self.Rows}")
+				else:
+					self.CardList[index] = self.GetCardFromDeck()
 
 
 	def ReplaceCardsByIndex(self, indexes):
@@ -88,7 +94,9 @@ class Board:
 		count = self.CheckSetsIndex()
 		if count == 0:
 			print("after replace cards no sets, so add new row")
-			self.AddRow()
+			rc = self.AddRow()
+			if rc == False:
+				return False
 
 	def GetCardFromDeck(self):
 
@@ -249,10 +257,10 @@ class Board:
 			if self.IsSet(indexes) == True:
 				self.Match_indexes = indexes
 				count += 1
-		if count == 1:
-			print("There is only 1 possible set on the table.")
-		else:
-			print(f"There are {str(count)} possible sets on the table.")
+		#if count == 1:
+		#	print("There is only 1 possible set on the table.")
+		#else:
+		#	print(f"There are {str(count)} possible sets on the table.")
 
 		sys.stdout.flush()
 		self.KnownSets = count
@@ -284,17 +292,23 @@ class Board:
 		
 		if self.KnownSets > 0:
 			print(f'There are {self.KnownSets} sets so do not need to add row')
-			return
+			return False
 
 		if self.DeckIndex >= 80:
 			print("not adding rows - at end of deck")
-			return
+			return False
+
+		if self.Rows == 4:
+			print("already have 4 rows, not adding new row ")
+			return False
+
 		self.Rows += 1
 
 		self.CardList.append(self.GetCardFromDeck())
 		self.CardList.append(self.GetCardFromDeck())
 		self.CardList.append(self.GetCardFromDeck())
 		self.CardList.append(self.GetCardFromDeck())
+		return True
 		
 	def RemoveRow(self):
 

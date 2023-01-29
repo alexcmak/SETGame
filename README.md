@@ -35,5 +35,5 @@ It's a card game, don't over think it, what good is a _proof_ of how many rows y
 
 ## Future Versions
 
-- improved graphics
+- add some basic animations on matched cards
 - help screen that spell out the rules

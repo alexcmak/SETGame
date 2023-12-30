@@ -12,9 +12,17 @@ Please read more about [how to install](https://www.pygame.org/wiki/GettingStart
 
 `pip install pygame --pre`
 
+If you are on a mac:
+
+`pip3 install pygame --pre`
+
 To run this game once you have python and pygame, run something like this in the command line:
 
 `python SETGame.py`
+
+If you are on a mac:
+
+`python3 SetGame.py`
 
 ## Features
 
